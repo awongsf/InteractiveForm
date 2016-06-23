@@ -30,10 +30,12 @@ If the user selects "Theme - I ♥ JS"
 */
 $("#design").change(function () {
 	if ($(this).val() === "js puns") {
+		$("#color").val("cornflowerblue");
 		$("#color > option:nth-child(1), #color > option:nth-child(2), #color > option:nth-child(3)").show();
 		$("#color > option:nth-child(4), #color > option:nth-child(5), #color > option:nth-child(6)").hide();
 	}
 	if ($(this).val() === "heart js") {
+		$("#color").val("tomato");
 		$("#color > option:nth-child(1), #color > option:nth-child(2), #color > option:nth-child(3)").hide();
 		$("#color > option:nth-child(4), #color > option:nth-child(5), #color > option:nth-child(6)").show();
 	}
@@ -60,46 +62,87 @@ var nodeJS = $("input[name='node']");
 mainConference.change(function () {
 	if ($(this).prop("checked")) {
 		$(".activities > label > input:not(:checked)").prop("disabled", true);
+		$(".activities > label > input:not(:checked)").parent().addClass("label-disabled");
 	} else {
 		$(".activities > label > input:not(:checked)").prop("disabled", false);
+		$(".activities > label > input:not(:checked)").parent().removeClass("label-disabled");
 	}
 });
 
 jsFrameworks.change(function () {
 	if ($(this).prop("checked")) {
 		express.prop("disabled", true);
+		express.parent().addClass("label-disabled");
 	} else {
 		express.prop("disabled", false);
+		express.parent().removeClass("label-disabled");
 	}
 });
 
 jsLibraries.change(function () {
 	if ($(this).prop("checked")) {
 		nodeJS.prop("disabled", true);
+		nodeJS.parent().addClass("label-disabled");
 	} else {
 		nodeJS.prop("disabled", false);
+		nodeJS.parent().removeClass("label-disabled");
 	}
 });
 
 express.change(function () {
 	if ($(this).prop("checked")) {
 		jsFrameworks.prop("disabled", true);
+		jsFrameworks.parent().addClass("label-disabled");
 	} else {
 		jsFrameworks.prop("disabled", false);
+		jsFrameworks.parent().removeClass("label-disabled");
 	}
 });
 
 nodeJS.change(function () {
 	if ($(this).prop("checked")) {
 		jsLibraries.prop("disabled", true);
+		jsLibraries.parent().addClass("label-disabled");
 	} else {
 		jsLibraries.prop("disabled", false);
+		jsLibraries.parent().removeClass("label-disabled");
 	}
 });
 
 
 
+/* Payment Info section of the form. 
 
+Display payment sections based on chosen payment option
+
+	The "Credit Card" payment option should be selected by default and result in the display of the
+	#credit-card div, and hide the "Paypal" and "Bitcoin information.
+	
+	When a user selects the "PayPal" payment option, display the Paypal information, and hide the 
+	credit card information and the "Bitcoin" information.
+	
+	When a user selects the "Bitcoin" payment option, display the Bitcoin information, and hide the 
+	credit card information.
+*/
+
+/* Form validation. 
+
+Display error messages and don't let the user submit the form if any of these validation errors exist:
+	
+	Name field can't be empty
+	
+	Email field must be a validly formatted e-mail address (you don't have to check that it's a real 
+	e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example. 
+	You'll need to use a regular expression to get this requirement. See the list of Resources 
+	for links to learn about regular expressions.
+
+	At least one activity must be checked from the list under "Register for Actitivities."
+
+	Payment option must be selected.
+
+	If "Credit card" is the selected payment option, make sure the user supplied a credit card number, 
+	a zip code, and a 3 number CVV value.
+*/
 
 
 
