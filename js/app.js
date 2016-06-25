@@ -46,26 +46,38 @@ Some events are at the same time as others.
 If the user selects a workshop, don't allow selection of a workshop at the same date and 
 time -- you should disable the checkbox and visually indicate that the workshop in the 
 competing time slot isn't available.
-When a user unchecks an activity, make sure that competing activities (if there are any)
- are no longer disabled.
+	When a user unchecks an activity, make sure that competing activities (if there are any)
+	are no longer disabled.
 As a user selects activities to register for, a running total is listed below the list of 
 checkboxes. For example, if the user selects "Main conference" then Total: $200 should appear. 
 If they add 1 workshop the total should change to Total: $300. 
 */
 
-var mainConference = $("input[name='all']");
 var jsFrameworks = $("input[name='js-frameworks'");
 var jsLibraries = $("input[name='js-libs']");
 var express = $("input[name='express']");
 var nodeJS = $("input[name='node']");
+var runningTotal = 0;
+var showTotal = false;
 
-mainConference.change(function () {
+var updateRunningTotal = function (cost) {
+	runningTotal += cost;
+	if (runningTotal > 0 && showTotal === false) {
+		$(".activities").append("<p id='total'></p>");
+		showTotal = true;
+	}
+	if (runningTotal === 0) {
+		$(".activities > p").remove();
+		showTotal = false;
+	}
+	document.getElementById("total").innerHTML = "Total: $" + runningTotal;
+};
+
+$("input[name='all']").change(function () {
 	if ($(this).prop("checked")) {
-		$(".activities > label > input:not(:checked)").prop("disabled", true);
-		$(".activities > label > input:not(:checked)").parent().addClass("label-disabled");
+		updateRunningTotal(200);
 	} else {
-		$(".activities > label > input:not(:checked)").prop("disabled", false);
-		$(".activities > label > input:not(:checked)").parent().removeClass("label-disabled");
+		updateRunningTotal(-200);
 	}
 });
 
@@ -73,9 +85,11 @@ jsFrameworks.change(function () {
 	if ($(this).prop("checked")) {
 		express.prop("disabled", true);
 		express.parent().addClass("label-disabled");
+		updateRunningTotal(100);
 	} else {
 		express.prop("disabled", false);
 		express.parent().removeClass("label-disabled");
+		updateRunningTotal(-100);
 	}
 });
 
@@ -83,9 +97,11 @@ jsLibraries.change(function () {
 	if ($(this).prop("checked")) {
 		nodeJS.prop("disabled", true);
 		nodeJS.parent().addClass("label-disabled");
+		updateRunningTotal(100);
 	} else {
 		nodeJS.prop("disabled", false);
 		nodeJS.parent().removeClass("label-disabled");
+		updateRunningTotal(-100);
 	}
 });
 
@@ -93,9 +109,11 @@ express.change(function () {
 	if ($(this).prop("checked")) {
 		jsFrameworks.prop("disabled", true);
 		jsFrameworks.parent().addClass("label-disabled");
+		updateRunningTotal(100);
 	} else {
 		jsFrameworks.prop("disabled", false);
 		jsFrameworks.parent().removeClass("label-disabled");
+		updateRunningTotal(-100);
 	}
 });
 
@@ -103,9 +121,27 @@ nodeJS.change(function () {
 	if ($(this).prop("checked")) {
 		jsLibraries.prop("disabled", true);
 		jsLibraries.parent().addClass("label-disabled");
+		updateRunningTotal(100);
 	} else {
 		jsLibraries.prop("disabled", false);
 		jsLibraries.parent().removeClass("label-disabled");
+		updateRunningTotal(-100);
+	}
+});
+
+$("input[name='build-tools']").change(function () {
+	if ($(this).prop("checked")) {
+		updateRunningTotal(100);
+	} else {
+		updateRunningTotal(-100);
+	}
+});
+
+$("input[name='npm']").change(function () {
+	if ($(this).prop("checked")) {
+		updateRunningTotal(100);
+	} else {
+		updateRunningTotal(-100);
 	}
 });
 
