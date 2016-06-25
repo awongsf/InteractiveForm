@@ -145,8 +145,6 @@ $("input[name='npm']").change(function () {
 	}
 });
 
-
-
 /* Payment Info section of the form. 
 
 Display payment sections based on chosen payment option
@@ -160,6 +158,32 @@ Display payment sections based on chosen payment option
 	When a user selects the "Bitcoin" payment option, display the Bitcoin information, and hide the 
 	credit card information.
 */
+
+$("#payment").val("credit card");
+
+$("#credit-card").next().attr("id", "paypal");
+$("#paypal").next().attr("id", "bitcoin");
+
+$("#paypal").hide();
+$("#bitcoin").hide();
+
+$("#payment").change(function () {
+	if ($(this).val() === "credit card") {
+		$("#credit-card").show();
+		$("#paypal").hide();
+		$("#bitcoin").hide();
+	}
+	if ($(this).val() === "paypal") {
+		$("#credit-card").hide();
+		$("#paypal").show();
+		$("#bitcoin").hide();
+	}
+	if ($(this).val() === "bitcoin") {
+		$("#credit-card").hide();
+		$("#paypal").hide();
+		$("#bitcoin").show();
+	}
+});
 
 /* Form validation. 
 
