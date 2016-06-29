@@ -5,6 +5,7 @@
 // When the page loads, give focus to the first text field
 $(document).ready(function () {
 	$("input:text")[0].focus();
+	$("#payment").val("credit card");
 });
 
 /*
@@ -159,8 +160,6 @@ Display payment sections based on chosen payment option
 	credit card information.
 */
 
-$("#payment").val("credit card");
-
 $("#credit-card").next().attr("id", "paypal");
 $("#paypal").next().attr("id", "bitcoin");
 
@@ -204,6 +203,60 @@ Display error messages and don't let the user submit the form if any of these va
 	a zip code, and a 3 number CVV value.
 */
 
+var errorMsg = "";
+var emailInput = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+var creditCard = /\b\d{4}(| |-)\d{4}\1\d{4}\1\d{4}\b/;
+var zipCode = /^\d{5}(?:[-\s]\d{4})?$/;
+
+$("form").prepend("<h3 id='error'></h3>");
+$("#error").css("color", "red");
+$("#error").hide();
+
+$("form").submit(function (event) {
+	
+	event.preventDefault();
+
+	if ($("#name").val() === "") {
+		
+		console.log("error!");
+		$("html, body").animate({scrollTop: 0}, "slow");
+		errorMsg = "Please enter your name.";
+
+	} else if (!emailInput.test($("#mail").val())) {
+		
+		$("html, body").animate({scrollTop: 0}, "slow");
+		errorMsg = "Please enter a valid email.";
+
+	} else if ($(".activities > label > input:checked").length == 0) {
+
+		$("html, body").animate({scrollTop: 0}, "slow");
+		errorMsg = "Please select at least one activity.";
+
+	} else if ($("#payment").val() === "credit card" && !creditCard.test($("#cc-num").val().length < 16)) {
+
+		$("html, body").animate({scrollTop: 0}, "slow");
+		errorMsg = "Please enter a credit card number.";
+
+	} else if ($("#payment").val() === "credit card" && !zipCode.test($("#zip").val())) {
+	 
+	 	$("html, body").animate({scrollTop: 0}, "slow");
+	 	errorMsg = "Please enter your zip code.";
+
+	} else if ($("#payment").val() === "credit card" && $("#cvv").val().length < 3) {
+
+		$("html, body").animate({scrollTop: 0}, "slow");
+		errorMsg = "Please enter a 3 number CVV value.";
+
+	} else {
+		
+		errorMsg = "";
+
+	}
+
+	document.getElementById("error").innerHTML = errorMsg;
+	$("#error").show();
+			
+});
 
 
 
