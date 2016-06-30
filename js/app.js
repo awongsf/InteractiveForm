@@ -6,6 +6,7 @@
 $(document).ready(function () {
 	$("input:text")[0].focus();
 	$("#payment").val("credit card");
+	$("select").addClass("turnintodropdown");
 });
 
 /*
@@ -31,14 +32,17 @@ If the user selects "Theme - I ♥ JS"
 */
 $("#design").change(function () {
 	if ($(this).val() === "js puns") {
+		$("#colors-js-puns").show();
 		$("#color").val("cornflowerblue");
 		$("#color > option:nth-child(1), #color > option:nth-child(2), #color > option:nth-child(3)").show();
 		$("#color > option:nth-child(4), #color > option:nth-child(5), #color > option:nth-child(6)").hide();
-	}
-	if ($(this).val() === "heart js") {
+	} else if ($(this).val() === "heart js") {
+		$("#colors-js-puns").show();
 		$("#color").val("tomato");
 		$("#color > option:nth-child(1), #color > option:nth-child(2), #color > option:nth-child(3)").hide();
 		$("#color > option:nth-child(4), #color > option:nth-child(5), #color > option:nth-child(6)").show();
+	} else {
+		$("#colors-js-puns").hide();
 	}
 });
 
@@ -227,7 +231,7 @@ $("form").submit(function (event) {
 		$("html, body").animate({scrollTop: 0}, "slow");
 		errorMsg = "Please enter a valid email.";
 
-	} else if ($(".activities > label > input:checked").length == 0) {
+	} else if ($(".activities > label > input:checked").length === 0) {
 
 		$("html, body").animate({scrollTop: 0}, "slow");
 		errorMsg = "Please select at least one activity.";
@@ -235,7 +239,7 @@ $("form").submit(function (event) {
 	} else if ($("#payment").val() === "credit card" && !creditCard.test($("#cc-num").val())) {
 
 		$("html, body").animate({scrollTop: 0}, "slow");
-		errorMsg = "Please enter a credit card number.";
+		errorMsg = "Please enter a valid credit card number.";
 
 	} else if ($("#payment").val() === "credit card" && !zipCode.test($("#zip").val())) {
 	 
@@ -258,10 +262,19 @@ $("form").submit(function (event) {
 			
 });
 
+// Hide the "Color" label and select menu until a T-Shirt design is selected from the "Design" menu.
+
+$("#colors-js-puns").hide();
+
+// Style the "select" menus (drop down menus) on the form, so they match the styling of the text fields 
+// (see Resources links for an article on how to improve the look of select menus using CSS and JavaScript).
 
 
+// Validate the credit card number so that it's a validly formatted credit card number. 
+// (see the Resources links for information on how to do this.)
 
-
+$("#exp-month").wrap("<div id='expiry'></div>");
+$("#exp-year").wrap("<div id='expiry'></div>");
 
 
 

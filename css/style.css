@@ -117,6 +117,69 @@ button:hover {
 	background: #184c62;
 }
 
+.trigger {
+	background: top right no-repeat #c1deeb;
+	border: 2px solid #c1deeb;
+	color: initial;
+	display: inline-block;
+	font-size: 1em;
+	font-weight: 500;
+	padding: .8em;
+}
+.activetrigger {
+	background: #fff;
+	border: 2px solid #5e97b0;
+	color: initial;
+	display: inline-block;
+	font-size: 1em;
+	font-weight: 500;
+	padding: .8em;
+	transition: border-color .4s, background-color .4s;
+}
+.activetrigger:hover {
+	background: #c1deeb;
+}
+/* style of the UL */
+.dropcontainer ul {
+	background: #fff;
+	border: 2px solid #5e97b0;
+	border-bottom: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+}
+.dropdownhidden {
+	left: -999em;
+	top: 0;
+}
+.dropdownvisible{
+	left: 0;
+	top: 0;
+}
+.dropcontainer ul a {
+	border-bottom: 2px solid #5e97b0;
+	color: initial;
+	display: inline-block;
+	font-weight: 500;
+	padding: 0 .5em;
+	text-decoration: none;
+	width: 100%;
+}
+.dropcontainer ul a:hover {
+	background: #c1deeb;
+}
+.dropcontainer {
+	position: relative;
+}
+#expiry {
+	display: inline-block;
+}
+#size ~ .dropcontainer, #design ~ .dropcontainer {
+	position: absolute;
+	width: 100%;
+}
+
 /* ================================= 
   Page Styles
 ==================================== */
