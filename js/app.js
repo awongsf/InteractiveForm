@@ -3,11 +3,28 @@
 ====================== */
 
 // When the page loads, give focus to the first text field
-$(document).ready(function () {
-	$("input:text")[0].focus();
+// $(document).ready(function () {
+// 	$("input:text")[0].focus();
+
+// 	$("select").addClass("turnintodropdown");
+
+
+	
+// 	setTimeout(function() {
+// 		$("#payment ~ a").text("Credit Card");
+// 		$("#payment").val("credit card");
+//     }, 400);
+
+// });
+
+$("input:text")[0].focus();
+
+$("select").addClass("turnintodropdown");
+	
+setTimeout(function() {
+	$("#payment ~ a").text("Credit Card");
 	$("#payment").val("credit card");
-	$("select").addClass("turnintodropdown");
-});
+}, 400);
 
 /*
 Reveal a text field when the "Other" option is selected from the "Job Role" drop down menu
@@ -15,12 +32,12 @@ Reveal a text field when the "Other" option is selected from the "Job Role" drop
 $("form > fieldset:nth-child(1)").append("<input type='text' id='other-title' placeholder='Your Title'>");
 $("#other-title").hide();
 
-$("#title").change(function () {
-	if ($(this).val() === "other") {
-		$("#other-title").show();
-	} else {
-		$("#other-title").hide();
-	}
+$("body").on("click", "#title ~ .dropcontainer > ul > li:last-child", function (){
+	$("#other-title").show();
+});
+
+$("body").on("click", "#title ~ .dropcontainer > ul > li:not(:last-child)", function (){
+	$("#other-title").hide();
 });
 
 /*
@@ -30,20 +47,25 @@ If the user selects "Theme - JS Puns"
 If the user selects "Theme - I ♥ JS" 
 	then the color menu should only display "Tomato," "Steel Blue," and "Dim Grey."
 */
-$("#design").change(function () {
-	if ($(this).val() === "js puns") {
-		$("#colors-js-puns").show();
-		$("#color").val("cornflowerblue");
-		$("#color > option:nth-child(1), #color > option:nth-child(2), #color > option:nth-child(3)").show();
-		$("#color > option:nth-child(4), #color > option:nth-child(5), #color > option:nth-child(6)").hide();
-	} else if ($(this).val() === "heart js") {
-		$("#colors-js-puns").show();
-		$("#color").val("tomato");
-		$("#color > option:nth-child(1), #color > option:nth-child(2), #color > option:nth-child(3)").hide();
-		$("#color > option:nth-child(4), #color > option:nth-child(5), #color > option:nth-child(6)").show();
-	} else {
-		$("#colors-js-puns").hide();
-	}
+
+$("body").on("click", "#design ~ .dropcontainer > ul > li:nth-child(1)", function () {
+	$("#colors-js-puns").hide();
+});
+
+$("body").on("click", "#design ~ .dropcontainer > ul > li:nth-child(2)", function () {
+	$("#colors-js-puns").show();
+	$("#color").val("cornflowerblue");
+	$("#color ~ a").text("Cornflower Blue (JS Puns shirt only)");
+	$("#color ~ .dropcontainer > ul > li:nth-child(-n+3)").show();
+	$("#color ~ .dropcontainer > ul > li:nth-child(n+4").hide();
+});
+
+$("body").on("click", "#design ~ .dropcontainer > ul > li:nth-child(3)", function () {
+	$("#colors-js-puns").show();
+	$("#color").val("tomato");
+	$("#color ~ a").text("Tomato (I ♥ JS shirt only)");
+	$("#color ~ .dropcontainer > ul > li:nth-child(-n+3)").hide();
+	$("#color ~ .dropcontainer > ul > li:nth-child(n+4").show();
 });
 
 /*
@@ -170,22 +192,36 @@ $("#paypal").next().attr("id", "bitcoin");
 $("#paypal").hide();
 $("#bitcoin").hide();
 
-$("#payment").change(function () {
-	if ($(this).val() === "credit card") {
-		$("#credit-card").show();
-		$("#paypal").hide();
-		$("#bitcoin").hide();
-	}
-	if ($(this).val() === "paypal") {
-		$("#credit-card").hide();
-		$("#paypal").show();
-		$("#bitcoin").hide();
-	}
-	if ($(this).val() === "bitcoin") {
-		$("#credit-card").hide();
-		$("#paypal").hide();
-		$("#bitcoin").show();
-	}
+$("body").on("click", "#payment ~ .dropcontainer > ul > li:nth-child(1)", function (){
+
+	$("#credit-card").hide();
+	$("#paypal").hide();
+	$("#bitcoin").hide();
+
+});
+
+$("body").on("click", "#payment ~ .dropcontainer > ul > li:nth-child(2)", function (){
+
+	$("#credit-card").show();
+	$("#paypal").hide();
+	$("#bitcoin").hide();
+
+});
+
+$("body").on("click", "#payment ~ .dropcontainer > ul > li:nth-child(3)", function (){
+
+	$("#credit-card").hide();
+	$("#paypal").show();
+	$("#bitcoin").hide();
+
+});
+
+$("body").on("click", "#payment ~ .dropcontainer > ul > li:nth-child(4)", function (){
+
+	$("#credit-card").hide();
+	$("#paypal").hide();
+	$("#bitcoin").show();
+
 });
 
 /* Form validation. 
@@ -275,11 +311,7 @@ $("#colors-js-puns").hide();
 
 $("#exp-month").wrap("<div id='expiry'></div>");
 $("#exp-year").wrap("<div id='expiry'></div>");
+$("#title").wrap("<div id='job'></div>");
+$("#other-title").wrap("<div id='job'></div>");
 
-
-
-
-
-
-
-
+	

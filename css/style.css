@@ -118,7 +118,7 @@ button:hover {
 }
 
 .trigger {
-	background: top right no-repeat #c1deeb;
+	background: #c1deeb;
 	border: 2px solid #c1deeb;
 	color: initial;
 	display: inline-block;
@@ -126,6 +126,7 @@ button:hover {
 	font-weight: 500;
 	padding: .8em;
 }
+
 .activetrigger {
 	background: #fff;
 	border: 2px solid #5e97b0;
@@ -174,6 +175,24 @@ button:hover {
 }
 #expiry {
 	display: inline-block;
+	float: left;
+	margin-right: 0.85em;
+}
+#job {
+	float: left;
+	margin-right: 0.85em;
+}
+#title ~ a {
+	width: 256px;
+}
+#design ~ a {
+	width: 152px;
+}
+#color ~ .dropcontainer {
+	width: 100%;
+}
+#exp-month ~ a {
+	width: 135px;
 }
 #size ~ .dropcontainer, #design ~ .dropcontainer {
 	position: absolute;
