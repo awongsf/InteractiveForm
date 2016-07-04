@@ -267,4 +267,18 @@ $("form").submit(function (event) {
 			
 });
 
+// DROP DOWN MENUS
+// Hide drop down menu when clicking outside of visible menu
+// by swapping classes.
+
+$('body').click(function(e) {                    
+   if(!$(e.target).hasClass('activetrigger'))
+   {
+		console.log('click');
+		$(".dropdownvisible").toggleClass("dropdownvisible dropdownhidden");
+		$(".activetrigger").toggleClass("activetrigger trigger");
+   }
+});
+
+        
 	

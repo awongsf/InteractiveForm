@@ -182,6 +182,9 @@ button:hover {
 	float: left;
 	margin-right: 0.85em;
 }
+#other-title {
+	margin-bottom: 0;
+}
 #title ~ a {
 	width: 256px;
 }
